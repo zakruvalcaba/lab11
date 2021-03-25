@@ -1,27 +1,27 @@
-//Event handler for each h2 element
+// ADD EVENT HANDLER TO EACH H2 ELEMENT
 const toggle = (e) => {
-    //The currently clicked h2 tag
+    // GET THE CURRENTLY SELECTED H2
     let h2 = e.currentTarget;
-    //Get the h2 tag's sibling div tag to show or hide
+    // GET THE H2 ELEMENT'S SIBLING DIV
     let div = h2.nextElementSibling;
-    //Get the array of h2 elements
-	let h2Elements = faqs.getElementsByTagName('h2');
-    //Loop through the array of h2 elements
-	for (let i = 0; i < h2Elements.length; i++) {
-        //If the h2 element in the array doesn't equal the currently
-        //clicked h2 then hide all class attributes for h2 and child divs
+    // HANDLE THE REMOVAL OF CLASS ATTRIBUTES FROM H2 AND DIV TAGS
+    // GET H2 ELEMENTS AND THEN LOOP THROUGH THE ARRAY OF H2 ELEMENTS
+    let h2Elements = faqs.getElementsByTagName('h2');
+    for (let i = 0; i < h2Elements.length; i++) {
+        // IF THE H2 ELEMENT IN THE ARRAY DOESN'T EQUAL THE CURRENTLY
+        // CLICKED H2, HIDE ALL CLASS ATTRIBUTES FOR H2 AND CHILD DIVS
         if (h2Elements[i] !== e.currentTarget) {
-            h2Elements[i].removeAttribute('class');
-            h2Elements[i].nextElementSibling.removeAttribute('class');
+            h2Elements[i].removeAttribute('class'); // REMOVE CLASS FROM H2
+            h2Elements[i].nextElementSibling.removeAttribute('class'); // REMOVE CLASS FROM DIV
         }
     }
-    //Toggle plus and minus image in h2 elements by adding or removing a class
+    // TOGGLE PLUS / MINUS ICON BY ADDING / REMOVING CLASS
     if (h2.hasAttribute('class')) {
         h2.removeAttribute('class');
     } else {
         h2.setAttribute('class', 'minus');
     }
-    //Toggle div visibility by adding or removing a class
+    // TOGGLE DIV VISIBILITY BY ADDING / REMOVING CLASS
     if (div.hasAttribute('class')) {
         div.removeAttribute('class');
     } else {
@@ -30,14 +30,12 @@ const toggle = (e) => {
 };
 
 window.addEventListener('load', () => {
-    //Get the main accordion
-    let faqs = document.getElementById('faqs');
-    //Get the h2 tags from the accordion
-    h2Elements = faqs.getElementsByTagName('h2');
-    //Attach event handler to each of the h2 tags   
+    // GET THE ACCORDION
+    let faqs = document.querySelector('#faqs');
+    // GET THE H2 ELEMENTS FROM THE ACCORDION
+    let h2Elements = faqs.getElementsByTagName('h2');
+    // ATTACH EVENT LISTENER AND HANDLER TO EACH H2 ELEMENT
     for (let i = 0; i < h2Elements.length; i++) {
         h2Elements[i].addEventListener('click', toggle);
     }
-    //Set focus on first h2 tag's <a> tag
-    h2Elements[0].firstChild.focus();
 });
