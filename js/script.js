@@ -1,48 +1,72 @@
-// ADD EVENT HANDLER TO EACH H2 ELEMENT
-const toggle = (e) => {
-    // GET THE CURRENTLY SELECT H2
-    let h2 = e.currentTarget
-    // GET THE CURREBTLY SELECTED DIV FOR THE H2
-    let div = h2.nextElementSibling
+// DOM HANDLER FUNCTION
+const $ = (id) => document.getElementById(id)
 
-    // HANDLE REMOVAL OF ALL CLASSES FROM H2 AND DIV ELEMENTS
-    // LOOP THROUGH ARRAY OF H2 ELEMENTS
-    for (h2Element of h2Elements) {
-        // IF THE H2 ELEMENT IN THE COLLECTION DOESN'T EQUAL THE CURRENTLY
-        // CLICKED H2, HIDE ALL CLASS ATTRIBUTES FOR H2 AND SIBLING DIV
-        if (h2Element !== e.currentTarget) {
-            // REMOVE CLASS FROM H2
-            h2Element.removeAttribute('class')
-            // REMOVE CLASS FROM SIBLING DIV
-            h2Element.nextElementSibling.removeAttribute('class')
-        }
+// PROCESS ENTRIES
+const processEntries = () => {
+    // DEFINE GENERIC VARIABLES
+    let header = ''
+    let html = ''
+    let required = '<span>Required field</span>'
+    let message = 'Review your entries and complete all required fields.'
+
+    // COLLECT VALUES FROM FORM ELEMENTS
+    let email = $('email_address').value
+    let phone = $('phone').value
+    let country = $('country').value
+    let contact = 'Text'
+    if ($('email').checked) {
+        contact = 'Email'
     }
-    
-    // TOGGLE PLUS / MINUS ICON FOR SELECTED H2
-    if (h2.hasAttribute('class')) {
-        h2.removeAttribute('class')
-    } else {
-        h2.setAttribute('class', 'minus')
+    if ($('none').checked) {
+        contact = 'None'
+    }
+    let terms = ''
+    if ($('terms').checked) {
+        terms = 'I Accept'
     }
 
-    // TOGGLE OPEN / CLOSE FOR SELECTED H2'S DIV
-    if (div.hasAttribute('class')) {
-        div.removeAttribute('class')
+    // CHECK FOR EMPTY VALUES
+    if (email === '') {
+        email = required
+        header = message
+    }
+    if (phone === '') {
+        phone = required
+        header = message
+    }
+    if (country === '') {
+        country = required
+        header = message
+    }
+    if (terms === '') {
+        terms = required
+        header = message
+    }
+    $('registration_header').innerHTML = header
+
+    // BUILD OUT ERROR MESSAGE IF ANYTHING IS WRONG ABOVE
+    if (header === message) {
+        html = 
+            `
+            <tr><td>Email:</td><td>${email}</td></tr>
+            <tr><td>Phone:</td><td>${phone}</td></tr>
+            <tr><td>Country:</td><td>${country}</td></tr>
+            <tr><td>Contact:</td><td>${contact}</td></tr>
+            <tr><td>Terms:</td><td>${terms}</td></tr>
+            `
+        $('registration_info').innerHTML = html
     } else {
-        div.setAttribute('class', 'open')
+        $('registration_form').submit()
     }
 }
-
-// GET THE ACCORDION
-let faqs = document.querySelector('#faqs')
-// GET ALL OF THE H2 ELEMENTS FROM THE ACCORDION
-let h2Elements = faqs.getElementsByTagName('h2')
-// LOOP THROUGH THE COLLECTION OF H2 ELEMENTS AND ATTACH AN EVENT LISTENER TO EACH
-// USING ES5
-// for (let i = 0; i < h2Elements.length; i++) {
-//     h2Elements[i].addEventListener('click', toggle)
-// }
-// USING ES6
-for (h2Element of h2Elements) {
-    h2Element.addEventListener('click', toggle)
+// RESET FORM
+const resetForm = () => {
+    $('registration_form').reset()
+    $('registration_header').innerHTML = ''
+    $('registration_info').innerHTML = ''
+    $('email_address').focus()
 }
+
+$('register').addEventListener('click', processEntries)
+$('reset_form').addEventListener('click', resetForm)
+$('email_address').focus()

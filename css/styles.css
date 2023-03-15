@@ -1,45 +1,21 @@
-* {
-    margin: 0;
-    padding: 0;
-}
-body {
-    font-family: sans-serif;
-    margin: 0 auto;
-    width: 400px;
-    padding: 15px 25px;
-}
-h1 { 
-    font-size: 150%;
-    padding: 20px 0;
-}
 h2 {
     font-size: 120%;
-    padding: 10px 0 10px 25px;
-    background: url(../images/plus.png) no-repeat left center;
 }
-h2.minus {
-    background: url(../images/minus.png) no-repeat left center;
+input[type="text"], select {
+    width: 20em;
+    padding: 5px 0;
+    margin-bottom: 1em;
 }
-a {
-    color: black;
-    text-decoration: none; 
+input[type="checkbox"], [type="radio"] {
+    width: 1em;
+    margin-bottom: 1em;
 }
-a:focus, a:hover { 
-	color: blue; 
+input[type="button"] {
+    margin-top:10px;
 }
-div {
-    display: none;
+#registration_info span {
+    color: red;
 }
-div.open {
-    display: block;
-}
-ul {
-    padding-left: 45px;
-}
-li {
-    padding-bottom: .25em;
-}
-p {
-    padding-bottom: .25em;
-    padding-left: 25px;
+td {
+	width: 9em;	
 }
