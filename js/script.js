@@ -1,12 +1,23 @@
 // DOM HANDLER FUNCTION
 const $ = (id) => document.getElementById(id)
 
-// PROCESS ENTRIES
+// DISABLE REGISTER BUTTON IF TERMS IS UNCHECKED
+if (!$('terms').checked) {
+    $('register').disabled = true
+}
+
+// TOGGLE REGISTER BUTTON STATE WHEN TERMS CHECKBOX IS CLICKED
+const checkDisabled = () => {
+    $('register').disabled = ! $('register').disabled
+}
+
+// PROESS ENTRIES
 const processEntries = () => {
-    // DEFINE GENERIC VARIABLES
+    "use strict"
+    // DEFINE GENERIC LOCAL VARIABLES
     let header = ''
     let html = ''
-    let required = '<span>Required field</span>'
+    let required = '<span>Required Field</span>'
     let message = 'Review your entries and complete all required fields.'
 
     // COLLECT VALUES FROM FORM ELEMENTS
@@ -42,9 +53,10 @@ const processEntries = () => {
         terms = required
         header = message
     }
+
     $('registration_header').innerHTML = header
 
-    // BUILD OUT ERROR MESSAGE IF ANYTHING IS WRONG ABOVE
+    // BUILD OUT ERROR MESSAGE IF THERE'S ANYTHING WRONG ABOVE
     if (header === message) {
         html = 
             `
@@ -59,6 +71,7 @@ const processEntries = () => {
         $('registration_form').submit()
     }
 }
+
 // RESET FORM
 const resetForm = () => {
     $('registration_form').reset()
@@ -67,6 +80,7 @@ const resetForm = () => {
     $('email_address').focus()
 }
 
+$('terms').addEventListener('click', checkDisabled)
 $('register').addEventListener('click', processEntries)
 $('reset_form').addEventListener('click', resetForm)
 $('email_address').focus()
